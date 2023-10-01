@@ -39,7 +39,7 @@ impl Vertex {
                     format: wgpu::VertexFormat::Float32x3,
                 },
                 wgpu::VertexAttribute{
-                    offset: std::mem::size_of::<[f32;2]>() as wgpu::BufferAddress,
+                    offset: std::mem::size_of::<[f32; 6]>() as wgpu::BufferAddress,
                     shader_location: 2,
                     format: wgpu::VertexFormat::Float32x2
                 }
@@ -51,10 +51,10 @@ impl Vertex {
 }
 
 const VERTICES: &[Vertex] = &[
-    Vertex { position: [0.5, 0.5, 0.0], color: [0.0, 0.0, 0.0], tex_cords: [0.5, 0.0] },
+    Vertex { position: [0.5, 0.5, 0.0], color: [0.0, 0.0, 0.0], tex_cords: [1.0, 0.0] },
     Vertex { position: [-0.5, 0.5, 0.0], color: [1.0, 0.0, 0.0], tex_cords: [0.0, 0.0]},
-    Vertex { position: [-0.5, -0.5, 0.0], color: [0.0, 1.0, 0.0], tex_cords: [0.0, 0.5] },
-    Vertex { position: [0.5, -0.5, 0.0], color: [0.0, 0.0, 1.0], tex_cords: [0.5, 1.0] },
+    Vertex { position: [-0.5, -0.5, 0.0], color: [0.0, 1.0, 0.0], tex_cords: [0.0, 1.0] },
+    Vertex { position: [0.5, -0.5, 0.0], color: [0.0, 0.0, 1.0], tex_cords: [1.0, 1.0] },
 ];
 
 const INDICES: &[u16] = &[
@@ -135,8 +135,7 @@ impl State {
         let diffuse_bytes = include_bytes!("tree.png");
         let diffuse_image = image::load_from_memory(diffuse_bytes)
             .expect("Unable to load from memory");
-        let diffuse_rgba = diffuse_image.as_rgba8()
-            .expect("Image cannot be converted to rgba8");
+        let diffuse_rgba = diffuse_image.to_rgba8();
 
         use image::GenericImageView;
         let dimensions = diffuse_image.dimensions();
