@@ -1,6 +1,5 @@
 use image::{DynamicImage, GenericImageView};
-use wgpu::{Device, Queue, TextureDimension};
-use winit::event::VirtualKeyCode::S;
+use wgpu::{Device, Queue};
 
 pub struct Texture {
     pub texture: wgpu::Texture,
